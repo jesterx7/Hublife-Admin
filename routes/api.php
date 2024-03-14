@@ -33,6 +33,23 @@ Route::middleware(['cors'])->group(function () {
         Route::get('/', 'App\Http\Controllers\ApiController@getAnswers');
         Route::post('/', 'App\Http\Controllers\ApiController@insertAnswers');
     });
+
+    Route::group(['prefix'=>'careers'], function(){
+        Route::get('/', 'App\Http\Controllers\ApiController@getCareers');
+    });
+
+    Route::group(['prefix'=>'elementQuestions'], function(){
+        Route::get('/', 'App\Http\Controllers\ApiController@getElementQuestions');
+        Route::get('/{seq}', 'App\Http\Controllers\ApiController@getElementQuestionsBySeq');
+    });
+
+    Route::group(['prefix'=>'values'], function(){
+        Route::get('/', 'App\Http\Controllers\ApiController@getValues');
+    });
+
+    Route::group(['prefix'=>'actions'], function(){
+        Route::get('/', 'App\Http\Controllers\ApiController@getActions');
+    });
 });
 
 

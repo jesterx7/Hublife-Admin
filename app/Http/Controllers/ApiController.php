@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\FormHeader;
 use App\Models\Question;
 use App\Models\Answer;
+use App\Models\CareerPath;
+use App\Models\ElementQuestion;
+use App\Models\Value;
+use App\Models\Action;
 
 class ApiController extends Controller
 {
@@ -81,5 +85,30 @@ class ApiController extends Controller
         }
 
         return json_encode($result);
+    }
+
+    public function getCareers() {
+        $data = CareerPath::with('careers')->get();
+        return json_encode($data);
+    }
+
+    public function getElementQuestions() {
+        $data = ElementQuestion::with('elementAnswers.element')->get();
+        return json_encode($data);
+    }
+
+    public function getElementQuestionsBySeq(string $seq) {
+        $data = ElementQuestion::where('seq', $seq)->with('elementAnswers.element')->first();
+        return json_encode($data);
+    }
+
+    public function getValues() {
+        $data = Value::get();
+        return json_encode($data);
+    }
+
+    public function getActions() {
+        $data = Action::get();
+        return json_encode($data);
     }
 }
