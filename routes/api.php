@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['cors'])->group(function () {
-    Route::group(['prefix'=>'form_header'], function(){
+    Route::group(['prefix'=>'formHeader'], function(){
         Route::get('/', 'App\Http\Controllers\ApiController@getForm');
         Route::post('/', 'App\Http\Controllers\ApiController@insertForm');
     });

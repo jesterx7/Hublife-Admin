@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('values', function (Blueprint $table) {
+        Schema::create('form_header', function (Blueprint $table) {
             $table->id();
-            $table->string('value');
-            $table->string('color_code');
-            $table->string('shape_code');
-            $table->string('img_path');
-            $table->integer('seq');
-            $table->integer('m_seq');
+            $table->string('name');
+            $table->string('phone');
+            $table->string('gender');
+            $table->integer('age');
+            $table->string('email');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('values');
+        Schema::dropIfExists('form_header');
     }
 };

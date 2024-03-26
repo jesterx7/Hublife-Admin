@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\FormHeader;
+use App\Models\ValuesHeader;
+use App\Models\ActionHeader;
 use App\Models\Question;
 use App\Models\Answer;
 use App\Models\CareerPath;
@@ -25,12 +27,29 @@ class ApiController extends Controller
         $result['message'] = 'Data Form Berhasil Ditambahkan';
         try {
             $formHeader = new FormHeader;
-            $formHeader->nama = $request->nama;
+            $formHeader->name = $request->name;
             $formHeader->email = $request->email;
-            $formHeader->nomor_telepon = $request->nomor_telepon;
+            $formHeader->phone = $request->phone;
             $formHeader->gender = $request->gender;
-            $formHeader->umur = $request->umur;
+            $formHeader->age = $request->age;
             $formHeader->save();
+
+            $valuesList = explode(",", $request->values);
+            foreach($valuesList as $value) {
+                $valuesHeader = new ValuesHeader;
+                $valuesHeader->value = $value;
+                $valuesHeader->form_header_id = $formHeader->id;
+                $valuesHeader->save();
+            }
+
+            $actionPlanList = $request->actionPlan;
+            foreach($actionPlanList as $actionPlan) {
+                $actionHeader = new ActionHeader;
+                $actionHeader->action = $actionPlan["action"];
+                $actionHeader->answer = $actionPlan["answer"];
+                $actionHeader->form_header_id = $formHeader->id;
+                $valuesHeader->save();
+            }
         }
         catch(Exception $e) {
             $result['result'] = 0;
@@ -103,7 +122,7 @@ class ApiController extends Controller
     }
 
     public function getValues() {
-        $data = Value::get();
+        $data = Value::orderBy('seq', 'ASC')->get();
         return json_encode($data);
     }
 

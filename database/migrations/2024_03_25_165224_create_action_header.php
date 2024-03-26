@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('values', function (Blueprint $table) {
+        Schema::create('action_header', function (Blueprint $table) {
             $table->id();
-            $table->string('value');
-            $table->string('color_code');
-            $table->string('shape_code');
-            $table->string('img_path');
-            $table->integer('seq');
-            $table->integer('m_seq');
+            $table->string('action');
+            $table->string('answer');
+            $table->unsignedBigInteger('form_header_id');
+            $table->foreign('form_header_id')->references('id')->on('form_header');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('values');
+        Schema::dropIfExists('action_header');
     }
 };

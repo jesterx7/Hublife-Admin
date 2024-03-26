@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('form_header', function (Blueprint $table) {
+        Schema::create('values_header', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('email');
-            $table->string('nomor_telepon');
-            $table->tinyInteger('gender');
-            $table->integer('umur');
+            $table->string('value');
+            $table->unsignedBigInteger('form_header_id');
+            $table->foreign('form_header_id')->references('id')->on('form_header');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('form_header');
+        Schema::dropIfExists('values_header');
     }
 };
